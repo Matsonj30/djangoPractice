@@ -13,8 +13,13 @@ def index(request):
     })
 
 def meetup_details(request, meetup_slug): #meetup_slug needs to match the identifier in urls
-  selected_meetup = {'title': 'A first Meetup', 
-                    'description':'This is the first meetup!'}
-  return render(request, 'meetups/meetup-details.html', {
-    'meetup_details':selected_meetup
+  try:
+    selected_meetup = Meetup.objects.get(slug=meetup_slug) #entry where this condition is met
+    return render(request, 'meetups/meetup-details.html', {
+      'meetup-found' : True,
+      'meetup_details':selected_meetup
   })
+  except Exception as exc:
+    return render(request, 'meetups/meetup-details.html',{
+      'meetup-found' : False
+    })
