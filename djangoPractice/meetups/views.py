@@ -16,10 +16,10 @@ def meetup_details(request, meetup_slug): #meetup_slug needs to match the identi
   try:
     selected_meetup = Meetup.objects.get(slug=meetup_slug) #entry where this condition is met
     return render(request, 'meetups/meetup-details.html', {
-      'meetup-found' : True,
+      'meetup_found' : True,
       'meetup_details':selected_meetup
   })
   except Exception as exc:
     return render(request, 'meetups/meetup-details.html',{
-      'meetup-found' : False
+      'meetup_found' : False
     })
