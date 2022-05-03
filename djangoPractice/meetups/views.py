@@ -1,21 +1,14 @@
 from turtle import title
 from django.shortcuts import render
-
+from .models import Meetup #not sure why the . is needed
 
 # Create your views here.
 
 def index(request):
-    meetups= [
-        {'title': 'A First Meetup', 
-        'location': 'New York', 
-        'slug': 'a-first-meetup'},
+    meetups= Meetup.objects.all() #data from database / objects is a static field
 
-        {'title': 'A Second Meetup', 
-        'location': 'Paris',
-        'slug': 'a-second-meetup'},
-    ]
+
     return render(request, 'meetups/index.html', { #return rendered template
-      'show_meetups': True,
       'meetups':meetups  #this is what is being passed into the html to be manipualted with {}
     })
 
