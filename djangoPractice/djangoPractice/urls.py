@@ -17,8 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import RedirectView
 
-urlpatterns = [
+""" urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('meetups.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   #this is the path which the browser can send requests, then serve files in a folder
+ """
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/meetups')), #redirect to path /meetups if domain/___ is entered
+    path('', include('meetups.urls')) #meetup specific urls
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   #this is the path which the browser can send requests, then serve files in a folder
+#confusing but probably works
+#online one has meetups/ in the third path instead of blank
